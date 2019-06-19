@@ -80,18 +80,6 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="C:/Users/felix/GitHubs/PC4/code/Matriz1.cpp">
-			<Option target="code"/>
-		</Unit>
-		<Unit filename="C:/Users/felix/GitHubs/PC4/code/Matriz1.h">
-			<Option target="code"/>
-		</Unit>
-		<Unit filename="C:/Users/felix/GitHubs/PC4/code/Matriz2.cpp">
-			<Option target="code"/>
-		</Unit>
-		<Unit filename="C:/Users/felix/GitHubs/PC4/code/Matriz2.h">
-			<Option target="code"/>
-		</Unit>
 		<Unit filename="C:/Users/felix/GitHubs/PC4/code/main.cpp">
 			<Option target="code"/>
 		</Unit>

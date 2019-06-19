@@ -1,6 +1,4 @@
-//
 // Created by jeanlee on 19/06/19.
-//
 
 #ifndef CODE_MATRIZ_H
 #define CODE_MATRIZ_H

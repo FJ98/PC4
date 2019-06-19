@@ -122,60 +122,6 @@ code/fast:
 	$(MAKE) -f CMakeFiles\code.dir\build.make CMakeFiles/code.dir/build
 .PHONY : code/fast
 
-Matriz1.obj: Matriz1.cpp.obj
-
-.PHONY : Matriz1.obj
-
-# target to build an object file
-Matriz1.cpp.obj:
-	$(MAKE) -f CMakeFiles\code.dir\build.make CMakeFiles/code.dir/Matriz1.cpp.obj
-.PHONY : Matriz1.cpp.obj
-
-Matriz1.i: Matriz1.cpp.i
-
-.PHONY : Matriz1.i
-
-# target to preprocess a source file
-Matriz1.cpp.i:
-	$(MAKE) -f CMakeFiles\code.dir\build.make CMakeFiles/code.dir/Matriz1.cpp.i
-.PHONY : Matriz1.cpp.i
-
-Matriz1.s: Matriz1.cpp.s
-
-.PHONY : Matriz1.s
-
-# target to generate assembly for a file
-Matriz1.cpp.s:
-	$(MAKE) -f CMakeFiles\code.dir\build.make CMakeFiles/code.dir/Matriz1.cpp.s
-.PHONY : Matriz1.cpp.s
-
-Matriz2.obj: Matriz2.cpp.obj
-
-.PHONY : Matriz2.obj
-
-# target to build an object file
-Matriz2.cpp.obj:
-	$(MAKE) -f CMakeFiles\code.dir\build.make CMakeFiles/code.dir/Matriz2.cpp.obj
-.PHONY : Matriz2.cpp.obj
-
-Matriz2.i: Matriz2.cpp.i
-
-.PHONY : Matriz2.i
-
-# target to preprocess a source file
-Matriz2.cpp.i:
-	$(MAKE) -f CMakeFiles\code.dir\build.make CMakeFiles/code.dir/Matriz2.cpp.i
-.PHONY : Matriz2.cpp.i
-
-Matriz2.s: Matriz2.cpp.s
-
-.PHONY : Matriz2.s
-
-# target to generate assembly for a file
-Matriz2.cpp.s:
-	$(MAKE) -f CMakeFiles\code.dir\build.make CMakeFiles/code.dir/Matriz2.cpp.s
-.PHONY : Matriz2.cpp.s
-
 main.obj: main.cpp.obj
 
 .PHONY : main.obj
@@ -212,12 +158,6 @@ help:
 	@echo ... code
 	@echo ... edit_cache
 	@echo ... rebuild_cache
-	@echo ... Matriz1.obj
-	@echo ... Matriz1.i
-	@echo ... Matriz1.s
-	@echo ... Matriz2.obj
-	@echo ... Matriz2.i
-	@echo ... Matriz2.s
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s
