@@ -2,6 +2,9 @@
 
 #ifndef CODE_MATRIZ_H
 #define CODE_MATRIZ_H
+#include <iostream>
+
+using namespace std;
 
 template <typename T>
 class Matriz{
