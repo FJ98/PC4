@@ -1,20 +1,19 @@
-// Created by jeanlee on 19/06/19.
-
-#ifndef CODE_MATRIZ_H
-#define CODE_MATRIZ_H
+// Created by felix on 6/19/2019.
+#ifndef CODE_MATRIZCONCURRENTE_H
+#define CODE_MATRIZCONCURRENTE_H
 
 #include <iostream>
 
 using namespace std;
 
 template <typename T>
-class Matriz{
+class MatrizConcurrente{
     int filas;
     int columnas;
     T** matriz;
 public:
-    Matriz():filas{0}, columnas{0} {};
-    Matriz(T filas, T columnas):filas{filas}, columnas{columnas} {
+    MatrizConcurrente():filas{0}, columnas{0} {};
+    MatrizConcurrente(T filas, T columnas):filas{filas}, columnas{columnas} {
         matriz = new T* [filas];
         for (int i = 0; i < filas; ++i)
             matriz[i] = new T[columnas];
@@ -73,4 +72,5 @@ public:
     }
 };
 
-#endif //CODE_MATRIZ_H
+
+#endif //CODE_MATRIZCONCURRENTE_H
