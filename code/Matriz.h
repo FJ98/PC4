@@ -17,6 +17,12 @@ public:
         matriz = new T* [filas];
         for (int i = 0; i < filas; ++i)
             matriz[i] = new T[columnas];
+
+        for (int i = 0; i < filas; ++i) {
+            for (int j = 0; j < columnas; ++j) {
+                matriz[i][j] = rand()%10;
+            }
+        }
     }
 
     T get(int i, int j){
@@ -38,6 +44,20 @@ public:
         for (int i = 0; i < filas; ++i) {
             for (int j = 0; j < columnas; ++j)
                 temp.set(i,j,matriz[i][j] + other.get(i,j));
+        }
+        return temp;
+    }
+
+    Matriz operator*(Matriz other) const{
+        Matriz<T> temp(filas,other.get_columnas());
+        for (int i = 0; i < filas; ++i) {
+            for (int j = 0; j < other.get_columnas(); ++j) {
+                T valor = 0;
+                for (int k = 0; k < columnas; ++k) {
+                    valor += matriz[i][k]*other.get(k,j);
+                }
+                temp.set(i,j,valor);
+            }
         }
         return temp;
     }
