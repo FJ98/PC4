@@ -1,5 +1,4 @@
 // Created by jeanlee on 19/06/19.
-
 #ifndef CODE_MATRIZ_H
 #define CODE_MATRIZ_H
 
@@ -18,6 +17,12 @@ public:
         matriz = new T* [filas];
         for (int i = 0; i < filas; ++i)
             matriz[i] = new T[columnas];
+
+        for (int i = 0; i < filas; ++i) {
+            for (int j = 0; j < columnas; ++j) {
+                matriz[i][j] = rand()%10;
+            }
+        }
     }
 
     T get(int i, int j){ return matriz[i][j]; }
