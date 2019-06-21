@@ -20,7 +20,7 @@ public:
 
         for (int i = 0; i < filas; ++i) {
             for (int j = 0; j < columnas; ++j) {
-                matriz[i][j] = rand()%10;
+                matriz[i][j] = rand()%3 + 1;
             }
         }
     }
@@ -74,7 +74,7 @@ public:
             for (int j = 0; j < columnas; ++j)
                 cout << matriz[i][j] << "\t";
             cout<<endl;
-        }
+        } cout<<endl;
     }
 };
 
