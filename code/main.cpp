@@ -8,26 +8,16 @@
 static const int THREADS = 4;
 
 int main() {
-    // NO CONCURRENTE Y NO PARALELA
-    Matriz<int> m1(2,3); Matriz<int> m2(3,2); Matriz<int> m3(2,2);
+    // NO CONCURRENTE
+    /*Matriz<int> m1(2,3); Matriz<int> m2(3,2); Matriz<int> m3(2,2);
     m3 = m1*m2;
-    m1.print_matriz(); m2.print_matriz(); m3.print_matriz();
+    m1.print_matriz(); m2.print_matriz(); m3.print_matriz();*/
 //----------------------------------------------
-    // NO CONCURRENTE Y PARALELA
-    /*Matriz2<int> mA(3,3); Matriz2<int> mB(3,3); Matriz2<int> mC(3,3);
-    std::thread threads[THREADS];
-    for (int i = 0; i < THREADS; ++i) {
-        //threads[i] = std::thread(multiply_threading<int>, i, std::ref(mA), std::ref(mB), std::ref(mC));
-    }
-    for (auto & thread : threads) { thread.join(); }
-    mC.print_matriz();*/
-//---------------------------------------------------
-    // CONCURRENTE Y NO PARALELA
-    Matriz<int> m11(2,3), m21(3,2), m31(2,2);
+    // NO CONCURRENTE
+    MatrizConcurrente<int> m11(2,2); MatrizConcurrente<int> m21(2,2); MatrizConcurrente<int> m31(2,2);
+    m11.print_matriz(); m21.print_matriz();
     m31 = m11*m21;
-    m11.print_matriz(); m21.print_matriz(); m31.print_matriz();
-//---------------------------------------------------
-    // CONCURRENTE Y PARALELA
+    m31.print_matriz();
 
 
     return 0;

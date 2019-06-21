@@ -57,13 +57,7 @@ public:
         return temp;
     }
 
-    Matriz&operator=(Matriz other){
-        for (int i = 0; i < filas; ++i) {
-            for (int j = 0; j < columnas; ++j) {
-                matriz[i][j] = other.get(i,j);
-            }
-        }
-    }
+
 
     bool igual_dimension(Matriz other){
         return ((filas == other.get_filas()) && (columnas == other.get_columnas()));
