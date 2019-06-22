@@ -77,7 +77,6 @@ public:
         if (idHilo == NUM_HILOS - 1 && extra != 0) {
             sup += extra;
         }
-        cout << inf << " " << sup << endl;
 
         for (int i = inf; i < sup; ++i) {
             for (int j = 0; j < Matriz2.columnas; ++j){
