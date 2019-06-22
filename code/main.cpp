@@ -21,15 +21,15 @@ int main() {
 //----------------------------------------------
 
     // CONCURRENTE
-    MatrizConcurrente<int> m1(1000,1000), m2(1000,1000), m3(1000,1000);
-    m1.print_matriz(); m2.print_matriz();
+    MatrizConcurrente<int> m11(1000,1000), m21(1000,1000), m31(1000,1000);
+    m11.print_matriz(); m21.print_matriz();
     auto start = high_resolution_clock::now();
-    m3 = m1*m2;
+    m31 = m11*m21;
     auto stop = high_resolution_clock::now();
 
     auto duration = duration_cast<microseconds>(stop - start);
 
-    m3.print_matriz();
+    m31.print_matriz();
     cout << "Time: " << duration.count() << endl;
 
     return 0;
