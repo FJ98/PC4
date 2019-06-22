@@ -43,7 +43,7 @@ public:
         return temp;
     }
 
-    Matriz operator*(Matriz other) const{
+    Matriz<T> operator*(Matriz<T> other) const{
         Matriz<T> temp(filas,other.get_columnas());
         for (int i = 0; i < filas; ++i) {
             for (int j = 0; j < other.get_columnas(); ++j){
