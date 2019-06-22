@@ -7,35 +7,10 @@
 #include <vector>
 #include <future>
 
-static const int NUM_HILOS = 2;
+static const int NUM_HILOS = 4;
 using namespace std;
 
-
-template <typename T>
-class MatrizConcurrente;
-
-template <typename T>
-void multiplicar(int idHilo, MatrizConcurrente<T> Matriz1,MatrizConcurrente<T> Matriz2, MatrizConcurrente<T> Matriz3){
-    int filas1, inf, sup, extra;
-    filas1 = Matriz1.get_filas();
-    extra = filas1 % NUM_HILOS;
-    inf = idHilo * (filas1 / NUM_HILOS);
-    sup = (idHilo+1) * (filas1 / NUM_HILOS);
-
-    if (idHilo == NUM_HILOS - 1 && extra == 0) {
-        sup += extra;
-    }
-
-    for (int i = inf; i < sup; ++i) {
-        for (int j = 0; j < Matriz2.get_columnas(); ++j){
-            T valor = 0;
-            for (int k = 0; k < Matriz1.get_columnas(); ++k) {
-                valor += Matriz1.get(i,k) * Matriz2.get(k,j);
-            }
-            Matriz3.set(i,j, valor);
-        }
-    }
-}
+std::mutex mtx;
 
 template <typename T>
 class MatrizConcurrente{
@@ -74,15 +49,15 @@ public:
 
     MatrizConcurrente<T> operator*(MatrizConcurrente<T> other){
         MatrizConcurrente<T> matrizTemp(filas,other.get_columnas());
-        //std::vector<std::thread> hilos;
-        std::thread hilos[NUM_HILOS];
+        std::vector<std::thread> hilos;
+
         for (int i = 0; i < NUM_HILOS; ++i) {
-            hilos[i] = std::thread(&MatrizConcurrente<T>::multiplicarF, this, i, std::ref(matrizTemp), std::ref(other));
+            hilos.emplace_back(&MatrizConcurrente<T>::multiplicarF, this, i,std::ref(other),std::ref(matrizTemp) );
         }
-        for (auto & hilo : hilos) {
-            hilo.join();
+        for (int j = 0; j < NUM_HILOS; ++j) {
+            hilos[j].join();
         }
-        return other;
+        return matrizTemp;
     }
     T sumar_fila(size_t fila) {
             return accumulate(this->matriz[fila], this->matriz[fila]/*+size*/, 0);
@@ -93,38 +68,26 @@ public:
         prm.set_value(m1.sumar_fila(fila) + m2.sumar_fila(fila));
     }
     void multiplicarF(int idHilo, MatrizConcurrente<T>& Matriz2, MatrizConcurrente<T>& Matriz3){
-        int inf, sup, n_valores, n_op, extra ;
-        n_valores = (filas * columnas);//TAMANO DE CADA MATRIZ MATRIZ
-        n_op = n_valores / NUM_HILOS;
-        extra = n_valores % NUM_HILOS;
+        mtx.lock();
+        int inf, sup, extra;
+        extra = this->filas % NUM_HILOS;
+        inf = idHilo * (this->filas / NUM_HILOS);
+        sup = (idHilo+1) * (this->filas / NUM_HILOS);
+        if (idHilo == NUM_HILOS - 1 && extra != 0) {
+            sup += extra;
+        }
+        cout << inf << " " << sup << endl;
 
-        /*inf = idHilo * (this->filas / NUM_HILOS);
-        sup = (idHilo+1) * (this->filas / NUM_HILOS);*/
-        if (idHilo == 0) {
-            inf = idHilo * n_op;
-            sup = ((idHilo+1) * n_op) + extra;
-        }else{
-            inf = idHilo * n_op + extra;
-            sup = ((idHilo+1) * n_op) + extra;
-        }
         for (int i = inf; i < sup; ++i) {
-            const int row = i % filas;
-            const int col = i / columnas;
-            float r = 0.0f;
-            for (int j = 0; j < columnas; ++j) {
-                r += this->matriz[row][j] * Matriz2.matriz[j][col];
-            }
-            Matriz3.matriz[row][col] = r;
-        }
-        /*for (int i = inf; i < sup; ++i) {
-            for (int j = 0; j < Matriz2.filas; ++j){
+            for (int j = 0; j < Matriz2.columnas; ++j){
                 T valor = 0;
-                for (int k = 0; k < this->columnas; ++k) {
+                for (int k = 0; k < Matriz2.filas; ++k) {
                     valor += this->matriz[i][k] * Matriz2.matriz[k][j];
                 }
                 Matriz3.matriz[i][j] = valor;
             }
-        }*/
+        }
+        mtx.unlock();
     }
 
     MatrizConcurrente<T> & operator= (MatrizConcurrente<T> other) {

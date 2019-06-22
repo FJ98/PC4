@@ -14,7 +14,7 @@ int main() {
     m1.print_matriz(); m2.print_matriz(); m3.print_matriz();*/
 //----------------------------------------------
     // NO CONCURRENTE
-    MatrizConcurrente<int> m11(2,2); MatrizConcurrente<int> m21(2,2); MatrizConcurrente<int> m31(2,2);
+    MatrizConcurrente<int> m11(7,4); MatrizConcurrente<int> m21(4,7); MatrizConcurrente<int> m31(7,7);
     m11.print_matriz(); m21.print_matriz();
     m31 = m11*m21;
     m31.print_matriz();
