@@ -8,7 +8,7 @@
 #include <future>
 
 
-static const int NUM_HILOS = 4;
+static const int NUM_HILOS = 16;
 using namespace std;
 
 std::mutex mtx;
@@ -90,13 +90,13 @@ public:
         mtx.unlock();
     }
 
-    MatrizConcurrente<T> & operator= (MatrizConcurrente<T> other) {
+    /*MatrizConcurrente<T> & operator= (MatrizConcurrente<T> other) {
         for (int i = 0; i < filas; ++i) {
             for (int j = 0; j < columnas; ++j) {
                 matriz[i][j] = other.matriz[i][j];
             }
         }
-    }
+    }*/
 
     bool igual_dimension(MatrizConcurrente other){
         return ((filas == other.get_filas()) && (columnas == other.get_columnas()));
