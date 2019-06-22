@@ -5,7 +5,6 @@
 #include <iostream>
 #include <thread>
 #include <vector>
-#include <future>
 
 
 static const int NUM_HILOS = 16;
@@ -39,15 +38,6 @@ public:
         matriz[pos_fila][pos_columna] = valor;
     }
 
-    MatrizConcurrente<T> operator+(MatrizConcurrente<T> other) const{
-        MatrizConcurrente<T> temp(filas,columnas);
-        for (int i = 0; i < filas; ++i) {
-            for (int j = 0; j < columnas; ++j)
-                temp.set(i,j,matriz[i][j] + other.get(i,j));
-        }
-        return temp;
-    }
-
     MatrizConcurrente<T> operator*(MatrizConcurrente<T> other){
         MatrizConcurrente<T> matrizTemp(filas,other.get_columnas());
         std::vector<std::thread> hilos;
@@ -60,16 +50,8 @@ public:
         }
         return matrizTemp;
     }
-    T sumar_fila(size_t fila) {
-            return accumulate(this->matriz[fila], this->matriz[fila]/*+size*/, 0);
-    }
-
-    void sumar_fila_matrices(MatrizConcurrente<T>& m1, MatrizConcurrente<T>& m2,
-                               size_t fila, promise<T> prm) {
-        prm.set_value(m1.sumar_fila(fila) + m2.sumar_fila(fila));
-    }
+    
     void multiplicarF(int idHilo, MatrizConcurrente<T>& Matriz2, MatrizConcurrente<T>& Matriz3){
-        mtx.lock();
         int inf, sup, extra;
         extra = this->filas % NUM_HILOS;
         inf = idHilo * (this->filas / NUM_HILOS);
@@ -77,26 +59,18 @@ public:
         if (idHilo == NUM_HILOS - 1 && extra != 0) {
             sup += extra;
         }
-
         for (int i = inf; i < sup; ++i) {
             for (int j = 0; j < Matriz2.columnas; ++j){
                 T valor = 0;
                 for (int k = 0; k < Matriz2.filas; ++k) {
+                    mtx.lock();
                     valor += this->matriz[i][k] * Matriz2.matriz[k][j];
+                    mtx.unlock();
                 }
                 Matriz3.matriz[i][j] = valor;
             }
         }
-        mtx.unlock();
     }
-
-    /*MatrizConcurrente<T> & operator= (MatrizConcurrente<T> other) {
-        for (int i = 0; i < filas; ++i) {
-            for (int j = 0; j < columnas; ++j) {
-                matriz[i][j] = other.matriz[i][j];
-            }
-        }
-    }*/
 
     bool igual_dimension(MatrizConcurrente other){
         return ((filas == other.get_filas()) && (columnas == other.get_columnas()));
